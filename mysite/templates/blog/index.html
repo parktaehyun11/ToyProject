@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Park's Blog</title>
+    <link rel="stylesheet" href="{%static 'toy.css'%}">
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+        <p><a href="{% url 'blog:create' %}">글 작성</a></p>
+        <p><a href="{% url 'user:logout' %}">로그아웃</a></p>
+    {% else %}
+        <p><a href="{% url 'user:login' %}">로그인</a></p>
+    {% endif %}
+    {% for blog in blogs %}
+    <h1><a href="{% url 'blog:detail' blog.id %}">{{ blog.title }}</a></h1>
+    <p> {{blog.title_description}} </p>
+    {% endfor %}
+</body>
+</html>
